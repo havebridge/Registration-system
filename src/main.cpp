@@ -10,54 +10,62 @@
 
 #include <Windows.h>
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR szCmdLing, int nCmdShow)
+
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	switch (uMsg)
+	{
+	case WM_DESTROY:
+	{
+		PostQuitMessage(0);
+	}
+	return 0;
+
+	}
+	return DefWindowProc(hwnd, uMsg, wParam, lParam);
+}
+
+
+int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE prevInstance, PSTR CommandLine, INT ShowCode)
+{
+	WNDCLASS wc = { sizeof WNDCLASS };
+
+	wc.lpszClassName = L"Window class";
+	wc.hInstance = Instance;
+	wc.lpfnWndProc = WindowProc;
+
+	RegisterClass(&wc);
+
+	HWND hwnd = CreateWindowEx(
+		0,
+		wc.lpszClassName,
+		L"Hasbridge",
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		nullptr,
+		nullptr,
+		Instance,
+		nullptr
+	);
+
+	if (hwnd == nullptr)
+	{
+		return 0;
+	}
+
+	ShowWindow(hwnd, ShowCode);
+	
 	MSG msg;
-	HWND hwnd;
-	WNDCLASSEX wc{ (sizeof WNDCLASSEX) };
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hbrBackground = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
-	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
-	wc.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
-	wc.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
-	wc.hInstance = hInstance;
-	wc.lpfnWndProc = [](HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)->LRESULT
-	{
-		switch (uMsg)
-		{
-			case WM_DESTROY:
-			{
-				PostQuitMessage(EXIT_SUCCESS);
-			}
-			return 0;
-		}
-		return DefWindowProc(hWnd, uMsg, wParam, lParam);
-	};
-	wc.lpszClassName = L"Window";
-	wc.lpszMenuName = nullptr;
-	wc.style = CS_VREDRAW | CS_HREDRAW;
-
-	if (!RegisterClassEx(&wc))
-	{
-		return EXIT_FAILURE;
-	}
-
-	if (hwnd = CreateWindow(wc.lpszClassName, L"Hasbridge", WS_OVERLAPPEDWINDOW, 100, 100, 600, 600, nullptr, nullptr, wc.hInstance, nullptr); hwnd == INVALID_HANDLE_VALUE)
-	{
-		return EXIT_FAILURE;
-	}
-
-	ShowWindow(hwnd, nCmdShow);
-	UpdateWindow(hwnd);
-
-	while (GetMessage(&msg, nullptr, 0, 0))
+	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
 
-	return static_cast<int>(msg.wParam);
+	return 0;
 }
 
 
