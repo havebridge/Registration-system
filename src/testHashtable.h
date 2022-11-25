@@ -2,6 +2,9 @@
 
 #include "hashtable.h"
 
+#define DEBUG 0
+#define RELEASE 1
+
 
 namespace Test
 {
