@@ -1,3 +1,9 @@
+#pragma comment(linker,"\"/manifestdependency:type='win32' \
+name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
+processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "testHashtable.h"
 
 #include "object.h"
@@ -10,18 +16,101 @@
 
 #include <Windows.h>
 
+const int tableSize = 2;
+HashTable::Hashtable<std::string, std::string, tableSize> Hashtable;
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
 	{
-	case WM_DESTROY:
-	{
-		PostQuitMessage(0);
-	}
-	return 0;
+		case WM_CREATE:
+		{
+			HWND Button1 = CreateWindow(
+				L"BUTTON",
+				L"SIGN IN",
+				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+				300, 350, 150, 50,
+				hwnd,
+				reinterpret_cast<HMENU>(1),
+				nullptr,
+				nullptr
+			);
+
+			HWND Button2 = CreateWindow(
+				L"BUTTON",
+				L"SIGN UP",
+				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+				1000, 350, 150, 50,
+				hwnd,
+				reinterpret_cast<HMENU>(2),
+				nullptr,
+				nullptr
+			);
+
+			HWND Button3 = CreateWindow(
+				L"BUTTON",
+				L"DELETE ALL",
+				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+				1200, 600, 150, 50,
+				hwnd,
+				reinterpret_cast<HMENU>(3),
+				nullptr,
+				nullptr
+			);
+
+			std::ifstream ifs("Data/hashtable.hsbrdg", std::ios::ate);
+
+			if (ifs.tellg() != 0)
+			{
+				Hashtable.Deserialize();
+			}
+		}
+		return 0;
+		
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam))
+			{
+				case 1:
+				{
+					if (Hashtable.count >= tableSize)
+					{
+						MessageBox(nullptr, L"Max of Users!", L"Error", MB_ICONWARNING);
+						break;
+					}
+
+					Hashtable.Put("dolbaeb", "me");
+				}
+				break;
+
+				case 2:
+				{
+					Test::GetTest<std::string, std::string, tableSize>(Hashtable);
+				}
+				break;
+
+				case 3:
+				{
+					Hashtable.count = 0;
+					Hashtable.~Hashtable();
+					std::ofstream ofs;
+					ofs.open("Data/hashtable.hsbrdg", std::ofstream::out | std::ofstream::trunc);
+					ofs.close();
+				}
+				break;
+			}
+		}
+		return 0;
+
+		case WM_DESTROY:
+		{
+			Hashtable.Serialize();
+			PostQuitMessage(0);
+		}
+		return 0;
 
 	}
+
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
@@ -47,7 +136,7 @@ int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE prevInstance, PSTR CommandLin
 		CW_USEDEFAULT,
 		nullptr,
 		nullptr,
-		Instance,
+		wc.hInstance,
 		nullptr
 	);
 
@@ -92,29 +181,6 @@ int main(int argc, char** argv)
 	std::cout << Hashtable;
 
 	//std::cout << Test::GetTest<std::string, std::string, tableSize>(Hashtable);
-
-	/*ObjectModel::Object Test("test");
-
-	std::string str1 = "xyesos";
-	std::string str2 = "yeban";
-	std::string str3 = "grisha";
-	std::string str4 = "nikita";
-
-	std::unique_ptr<ObjectModel::Primitive> st1 = ObjectModel::Primitive::createPrimitive("str1", ObjectModel::Type::U8, ObjectModel::Wrapper::STRING, str1);
-	std::unique_ptr<ObjectModel::Primitive> st2 = ObjectModel::Primitive::createPrimitive("str1", ObjectModel::Type::U8, ObjectModel::Wrapper::STRING, str2);
-	std::unique_ptr<ObjectModel::Primitive> st3 = ObjectModel::Primitive::createPrimitive("str1", ObjectModel::Type::U8, ObjectModel::Wrapper::STRING, str3);
-	std::unique_ptr<ObjectModel::Primitive> st4 = ObjectModel::Primitive::createPrimitive("str1", ObjectModel::Type::U8, ObjectModel::Wrapper::STRING, str4);
-
-	Test.addEntitie(st1.get());
-	Test.addEntitie(st2.get());
-	Test.addEntitie(st3.get());
-	Test.addEntitie(st4.get());
-
-	Core::Util::saveAll(&Test);
-
-	std::vector<uint8_t> objectFromFile = Core::Util::load("Data/test.hsbrdg");
-	uint16_t it = 0;
-	ObjectModel::Object object = ObjectModel::Object::unpack(objectFromFile, it);*/
 	return 0;
 }
 #endif

@@ -200,14 +200,14 @@ namespace HashTable
 		{
 			tmp = new User<T, U>(Login, Password);
 			ht[HashVal] = tmp;
+			count++;
 		}
 		else
 		{
 			tmp = new User<T, U>(Login, Password);
 			prev->setNext(tmp);
+			count++;
 		}
-
-		count++;
 	}
 
 	template<typename T, typename U, int tableSize>
@@ -241,8 +241,12 @@ namespace HashTable
 	template<typename T, typename U, int tableSize>
 	void Hashtable<T, U, tableSize>::Serialize()
 	{
-		Object hashtable("hashtable");
+		if (count == 0)
+		{
+			return;
+		}
 
+		Object hashtable("hashtable");
 
 		std::unique_ptr<Primitive> numUsers = Primitive::createPrimitive("^", Type::U32, std::to_string(count));
 		hashtable.addEntitie(numUsers.get());
@@ -300,7 +304,7 @@ namespace HashTable
 			data += objectFromFile[i];
 		}
 
-		//Hashtable<T, U, tableSize> HashT;
+		this->count = data[15];
 
 		std::string log;
 		std::string pas;
@@ -335,7 +339,5 @@ namespace HashTable
 				pas.clear();
 			}
 		}
-
-		//return HashT;
 	}
 }
