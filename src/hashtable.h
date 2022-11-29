@@ -80,6 +80,7 @@ namespace HashTable
 		int Hash(const T&);
 		void Put(const T&, const U&);
 		void Remove(const T&, const U&);
+		bool Get(const T&, const U&);
 
 		void Serialize();
 		void Deserialize();
@@ -236,6 +237,26 @@ namespace HashTable
 			delete tmp;
 			count--;
 		}
+	}
+
+
+	template<typename T, typename U, int tableSize>
+	bool Hashtable<T, U, tableSize>::Get(const T& Login, const U& Password)
+	{
+		bool isFind = false;
+		int HashVal = Hash(Login);
+
+		User<T, U>* tmp = ht[HashVal];
+
+		for (; tmp != nullptr; tmp = tmp->getNext())
+		{
+			if (tmp->getLogin() == Login && tmp->getPassword() == Password)
+			{
+				isFind = true;
+			}
+		}
+
+		return isFind;
 	}
 
 	template<typename T, typename U, int tableSize>
