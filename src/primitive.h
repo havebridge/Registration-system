@@ -7,7 +7,7 @@ namespace ObjectModel
 {
 	class Primitive : public Root
 	{
-	public:
+	private:
 		uint8_t type;
 		uint8_t count;
 		std::vector<uint8_t>* data;

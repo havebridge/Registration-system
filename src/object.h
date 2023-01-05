@@ -8,7 +8,7 @@ namespace ObjectModel
 {
 	class Object : public Root
 	{
-	public:
+	private:
 		std::vector<Primitive> primitives;
 	public:
 		Object(std::string);

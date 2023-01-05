@@ -14,13 +14,13 @@ namespace HashTable
 	template<typename T, typename U>
 	class User
 	{
-	public:
-		bool isSerialized = false;
-		bool isNext = false;
-	public:
+	private:
 		T Login;
 		U Password;
 		User* Next;
+	public:
+		bool isSerialized = false;
+		bool isNext = false;
 	public:
 		User(const T& Login, const U& Password)
 			:
@@ -66,8 +66,9 @@ namespace HashTable
 	template<typename T, typename U, int tableSize>
 	class Hashtable
 	{
-	public:
+	private:
 		User<T, U>** ht;
+	public:
 		int count = 0;
 
 	public:
