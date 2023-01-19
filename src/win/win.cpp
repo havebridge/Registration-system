@@ -129,15 +129,8 @@ namespace WinApi32
 				loginEnter.erase(remove(begin(loginEnter), end(loginEnter), 0), end(loginEnter));
 				passwordEnter.erase(remove(begin(passwordEnter), end(passwordEnter), 0), end(passwordEnter));
 
-				for (int i = 0; i != loginEnter.size(); ++i)
-				{
-					login += loginEnter[i];
-				}
-
-				for (int i = 0; i != passwordEnter.size(); ++i)
-				{
-					password += passwordEnter[i];
-				}
+				std::copy(loginEnter.begin(), loginEnter.end(), std::back_inserter(login));
+				std::copy(passwordEnter.begin(), passwordEnter.end(), std::back_inserter(password));
 
 				Hashtable.Put(login, password);
 
@@ -164,15 +157,8 @@ namespace WinApi32
 				loginEnter.erase(remove(begin(loginEnter), end(loginEnter), 0), end(loginEnter));
 				passwordEnter.erase(remove(begin(passwordEnter), end(passwordEnter), 0), end(passwordEnter));
 
-				for (int i = 0; i != loginEnter.size(); ++i)
-				{
-					login += loginEnter[i];
-				}
-
-				for (int i = 0; i != passwordEnter.size(); ++i)
-				{
-					password += passwordEnter[i];
-				}
+				std::copy(loginEnter.begin(), loginEnter.end(), std::back_inserter(login));
+				std::copy(passwordEnter.begin(), passwordEnter.end(), std::back_inserter(password));
 
 				if (Hashtable.Get(login, password))
 				{
