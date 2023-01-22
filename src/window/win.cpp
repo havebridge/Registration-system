@@ -162,11 +162,11 @@ namespace WinApi32
 
 				if (Hashtable.Get(login, password))
 				{
-					MessageBox(hwnd, L"Finded", L"Message", 0);
+					MessageBox(hwnd, L"Found", L"Message", 0);
 				}
 				else
 				{
-					MessageBox(hwnd, L"Not Finded", L"Message", 0);
+					MessageBox(hwnd, L"Not Found", L"Message", 0);
 				}
 
 				loginEnter.clear();
@@ -205,7 +205,7 @@ namespace WinApi32
 		if (this->buttonSignIn = CreateWindowEx(
 			0,
 			L"BUTTON",
-			L"Sign in",
+			L"Sign up",
 			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
 			300, 350, 150, 50,
 			this->hwnd,
@@ -220,7 +220,7 @@ namespace WinApi32
 		if (this->buttonSignUp = CreateWindowEx(
 			0,
 			L"BUTTON",
-			L"Sign up",
+			L"Sign in",
 			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
 			1000, 350, 150, 50,
 			this->hwnd,
