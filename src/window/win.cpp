@@ -132,12 +132,24 @@ namespace WinApi32
 				std::copy(loginEnter.begin(), loginEnter.end(), std::back_inserter(login));
 				std::copy(passwordEnter.begin(), passwordEnter.end(), std::back_inserter(password));
 
-				Hashtable.Put(login, password);
+				if (login.size() != 0 && password.size() != 0)
+				{
+					Hashtable.Put(login, password);
 
-				loginEnter.clear();
-				passwordEnter.clear();
-				login.clear();
-				password.clear();
+					loginEnter.clear();
+					passwordEnter.clear();
+					login.clear();
+					password.clear();
+				}
+				else
+				{
+					MessageBox(hwnd, L"Login and Password cannot be empty", L"Message", 0);
+
+					loginEnter.clear();
+					passwordEnter.clear();
+					login.clear();
+					password.clear();
+				}
 			}
 			break;
 
