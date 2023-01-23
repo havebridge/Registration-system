@@ -135,21 +135,16 @@ namespace WinApi32
 				if (login.size() != 0 && password.size() != 0)
 				{
 					Hashtable.Put(login, password);
-
-					loginEnter.clear();
-					passwordEnter.clear();
-					login.clear();
-					password.clear();
 				}
 				else
 				{
 					MessageBox(hwnd, L"Login and Password cannot be empty", L"Message", 0);
-
-					loginEnter.clear();
-					passwordEnter.clear();
-					login.clear();
-					password.clear();
 				}
+				
+				loginEnter.clear();
+				passwordEnter.clear();
+				login.clear();
+				password.clear();
 			}
 			break;
 
