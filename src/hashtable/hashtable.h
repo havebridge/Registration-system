@@ -73,6 +73,8 @@ namespace HashTable
 
 	public:
 		Hashtable();
+		Hashtable(const Hashtable&) = delete;
+		Hashtable& operator=(const Hashtable&) = delete;
 		~Hashtable();
 	public:
 		template<typename T, typename U, int tableSize>
