@@ -242,7 +242,6 @@ namespace HashTable
 		}
 	}
 
-
 	template<typename T, typename U, int tableSize>
 	bool Hashtable<T, U, tableSize>::Get(const T& Login, const U& Password)
 	{
