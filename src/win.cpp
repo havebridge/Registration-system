@@ -34,7 +34,7 @@ namespace WinApi32
 
 	void Window::InitNativeWindowObj()
 	{
-		WNDCLASSEX wc = { sizeof WNDCLASSEX };
+		WNDCLASSEX wc = { sizeof (WNDCLASSEX) };
 
 		wc.cbClsExtra = 0;
 		wc.cbWndExtra = 0;

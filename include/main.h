@@ -4,11 +4,11 @@ name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
 processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 
-#include "../window/win.h"
+#include "win.h"
 
 #ifndef UNICODE
 #define UNICODE
 #endif 
 
-#define RELEASE 1
-#define DEBUG 0
+#define RELEASE 0
+#define DEBUG 1

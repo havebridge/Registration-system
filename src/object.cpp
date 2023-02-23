@@ -5,7 +5,7 @@ namespace ObjectModel
 	Object::Object(std::string name)
 	{
 		this->setName(name);
-		size += (sizeof uint16_t) * 4;
+		size += (sizeof(uint16_t)) * 4;
 	}
 
 	void Object::addEntitie(Primitive* entity)
