@@ -1,10 +1,20 @@
 #pragma once
 
-#include "../testHashtable.h"
+#include "testHashtable.h"
 
-#include "../object.h"
+#include "object.h"
+
+#ifndef UNICODE
+#define UNICODE
+#define UNICODE_WAS_UNDEFINED
+#endif
 
 #include <Windows.h>
+
+#ifdef UNICODE_WAS_UNDEFINED
+#undef UNICODE
+#endif
+
 
 
 #include <algorithm>
