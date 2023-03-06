@@ -2,7 +2,6 @@
 
 namespace WinApi32
 {
-
 	Window::Window()
 	{
 		this->InitNativeWindowObj();

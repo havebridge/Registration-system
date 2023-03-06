@@ -4,7 +4,7 @@ namespace ObjectModel
 {
 	Primitive::Primitive()
 	{
-		size += sizeof type + sizeof count;
+		size += sizeof(type) + sizeof(count);
 	}
 
 

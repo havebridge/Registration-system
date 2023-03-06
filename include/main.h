@@ -6,9 +6,6 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 #include "win.h"
 
-#ifndef UNICODE
-#define UNICODE
-#endif 
 
-#define RELEASE 0
-#define DEBUG 1
+#define RELEASE 1
+#define DEBUG 0

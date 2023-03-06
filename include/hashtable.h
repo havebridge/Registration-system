@@ -11,6 +11,9 @@ using namespace Util;
 
 namespace HashTable
 {
+	template<typename T, typename U> class User;
+	template<typename T, typename U> std::istream& operator>>(std::istream& stream, User<T, U>& user);
+
 	template<typename T, typename U>
 	class User
 	{
@@ -31,8 +34,8 @@ namespace HashTable
 		User() = default;
 		~User() = default;
 	public:
-		template<typename T, typename U>
-		friend std::istream& operator>>(std::istream& stream, User<T, U>& user);
+		//template<typename T, typename U>
+		//friend std::istream& operator>>(std::istream& stream, User<T, U>& user);
 
 
 		void setLogin(const T& Login)
@@ -62,6 +65,8 @@ namespace HashTable
 
 	};
 
+	template<typename T, typename U, int tableSize> class Hashtable;
+	template<typename T, typename U, int tableSize> std::ostream& operator<<(std::ostream& stream, const Hashtable<T, U, tableSize>& ht);
 
 	template<typename T, typename U, int tableSize>
 	class Hashtable
@@ -77,8 +82,8 @@ namespace HashTable
 		Hashtable& operator=(const Hashtable&) = delete;
 		~Hashtable();
 	public:
-		template<typename T, typename U, int tableSize>
-		friend std::ostream& operator<<(std::ostream& stream, const Hashtable<T, U, tableSize>& ht);
+		//template<typename T, typename U, int tableSize>
+		//friend std::ostream& operator<<(std::ostream& stream, const Hashtable<T, U, tableSize>& ht);
 
 		int Hash(const T&);
 		void Put(const T&, const U&);
