@@ -1,0 +1,6 @@
+[submodule "Marshalling"]
+	path = Marshalling
+	url = git@github.com:havebridge/Marshalling.git
+[submodule "external/hserialize"]
+	path = external/hserialize
+	url = git@github.com:havebridge/Marshalling.git
