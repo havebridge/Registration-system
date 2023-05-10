@@ -11,9 +11,6 @@ using namespace Util;
 
 namespace HashTable
 {
-	template<typename T, typename U> class User;
-	template<typename T, typename U> std::istream& operator>>(std::istream& stream, User<T, U>& user);
-
 	template<typename T, typename U>
 	class User
 	{
@@ -34,8 +31,8 @@ namespace HashTable
 		User() = default;
 		~User() = default;
 	public:
-		//template<typename T, typename U>
-		//friend std::istream& operator>>(std::istream& stream, User<T, U>& user);
+		template<typename T, typename U>
+		friend std::istream& operator>>(std::istream& stream, User<T, U>& user);
 
 
 		void setLogin(const T& Login)
@@ -64,10 +61,8 @@ namespace HashTable
 		}
 
 	};
-
-	template<typename T, typename U, int tableSize> class Hashtable;
-	template<typename T, typename U, int tableSize> std::ostream& operator<<(std::ostream& stream, const Hashtable<T, U, tableSize>& ht);
-
+	
+	
 	template<typename T, typename U, int tableSize>
 	class Hashtable
 	{
@@ -82,8 +77,8 @@ namespace HashTable
 		Hashtable& operator=(const Hashtable&) = delete;
 		~Hashtable();
 	public:
-		//template<typename T, typename U, int tableSize>
-		//friend std::ostream& operator<<(std::ostream& stream, const Hashtable<T, U, tableSize>& ht);
+		template<typename T, typename U, int tableSize>
+		friend std::ostream& operator<<(std::ostream& stream, const Hashtable<T, U, tableSize>& ht);
 
 		int Hash(const T&);
 		void Put(const T&, const U&);
@@ -326,36 +321,30 @@ namespace HashTable
 		uint16_t it = 0;
 		Object object = Object::unpack(objectFromFile, it);
 
-		std::string data;
-		for (int i = 0; i != objectFromFile.size(); ++i)
-		{
-			data += objectFromFile[i];
-		}
-
-		this->count = data[15];
+		this->count = objectFromFile[15];
 
 		std::string log;
 		std::string pas;
 
-		for (int i = 0; i != data.size(); ++i)
+		for (int i = 0; i != objectFromFile.size(); ++i)
 		{
-			if (data[i] == '#')
+			if (objectFromFile[i] == '#')
 			{
 				i += 3;
 				int j = i;
-				while (data[j] != '\0')
+				while (objectFromFile[j] != '\0')
 				{
-					log += data[j++];
+					log += objectFromFile[j++];
 					i++;
 				}
 			}
-			else if (data[i] == '@')
+			else if (objectFromFile[i] == '@')
 			{
 				i += 3;
 				int j = i;
-				while (data[j] != '\0')
+				while (objectFromFile[j] != '\0')
 				{
-					pas += data[j++];
+					pas += objectFromFile[j++];
 					i++;
 				}
 			}
