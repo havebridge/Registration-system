@@ -47,10 +47,7 @@ namespace WinApi32
 		wc.lpszMenuName = nullptr;
 		wc.style = CS_VREDRAW | CS_HREDRAW;
 
-		if (!RegisterClassEx(&wc))
-		{
-			throw std::runtime_error("Error, cannot register main window class!");
-		}
+		RegisterClassEx(&wc);
 
 		this->hwnd = CreateWindowEx(
 			0,
@@ -220,7 +217,8 @@ namespace WinApi32
 			nullptr
 		); !this->buttonSignIn)
 		{
-			throw std::runtime_error("Error, cannot create sign in button");
+			std::cerr << "Error, cannot create sign in button\n";
+			return EXIT_FAILURE;
 		}
 
 		if (this->buttonSignUp = CreateWindowEx(
@@ -235,7 +233,8 @@ namespace WinApi32
 			nullptr
 		); !this->buttonSignUp)
 		{
-			throw std::runtime_error("Error, cannot create sign up button");
+			std::cerr << "Error, cannot create sign up button\n";
+			return EXIT_FAILURE;
 		}
 
 		if (this->buttonClear = CreateWindowEx(
@@ -250,7 +249,8 @@ namespace WinApi32
 			nullptr
 		); !this->buttonClear)
 		{
-			throw std::runtime_error("Error, cannot create clear button");
+			std::cerr << "Error, cannot create clear button\n";
+			return EXIT_FAILURE;
 		}
 
 
@@ -266,7 +266,8 @@ namespace WinApi32
 			nullptr
 		); !this->Login)
 		{
-			throw std::runtime_error("Error, cannot create Login input box");
+			std::cerr << "Error, cannot create Login input box\n";
+			return EXIT_FAILURE;
 		}
 
 		if (this->Password = CreateWindowEx(
@@ -281,7 +282,8 @@ namespace WinApi32
 			nullptr
 		); !this->Password)
 		{
-			throw std::runtime_error("Error, cannot create Password input box");
+			std::cerr << "Error, cannot create Password input box\n";
+			return EXIT_FAILURE;
 		}
 	}
 }
