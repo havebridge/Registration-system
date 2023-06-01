@@ -18,7 +18,6 @@
 
 
 #include <algorithm>
-#include <exception>
 
 namespace WinApi32
 {
